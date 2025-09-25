@@ -6,7 +6,7 @@ A simplified version of the MedAssist AI Pro clinical workflow demonstration app
 
 Watch our demonstration video to see Medical AI Idea in action (this is generated with Veo and Google Video 😉 ):
 
-https://github.com/user-attachments/assets/South-African-EHR-Idea_-A-Unified-Healthcare-Platform.mp4
+https://github.com/user-attachments/assets/South_African_EHR Idea_ A Unified_Healthcare_Platform.mp4
 
 *Note: This video showcases the unified healthcare platform concept and MedAssist AI Pro's clinical workflow capabilities.*
 
