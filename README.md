@@ -2,6 +2,14 @@
 
 A simplified version of the MedAssist AI Pro clinical workflow demonstration app built with Streamlit.
 
+## Demo Video
+
+Watch our demonstration video to see Medical AI Idea in action (this is generated with Veo and Google Video 😉 ):
+
+https://github.com/user-attachments/assets/South-African-EHR-Idea_-A-Unified-Healthcare-Platform.mp4
+
+*Note: This video showcases the unified healthcare platform concept and MedAssist AI Pro's clinical workflow capabilities.*
+
 ## Quick Start
 
 ### Using uv (if you have uv installed)

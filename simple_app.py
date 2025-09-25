@@ -23,24 +23,45 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for medical theme
+# Custom CSS for professional medical theme
 st.markdown("""
 <style>
     .main-header {
-        background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
-        padding: 1rem;
-        border-radius: 10px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 2rem;
+        border-radius: 12px;
         color: white;
         text-align: center;
         margin-bottom: 2rem;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+    
+    .main-header h1 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.02em;
+    }
+    
+    .main-header p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        font-weight: 300;
     }
     
     .clinical-card {
-        background: #f8f9fa;
-        border: 1px solid #dee2e6;
-        border-radius: 8px;
-        padding: 1rem;
-        margin: 0.5rem 0;
+        background: white;
+        border: 1px solid #e9ecef;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 0.75rem 0;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        transition: all 0.2s ease;
+    }
+    
+    .clinical-card:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
     
     .status-indicator {
@@ -49,11 +70,68 @@ st.markdown("""
         height: 12px;
         border-radius: 50%;
         margin-right: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     
-    .status-complete { background-color: #28a745; }
-    .status-pending { background-color: #ffc107; }
-    .status-error { background-color: #dc3545; }
+    .status-complete { 
+        background-color: #28a745;
+        box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.2);
+    }
+    .status-pending { 
+        background-color: #ffc107;
+        box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.2);
+    }
+    .status-error { 
+        background-color: #dc3545;
+        box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.2);
+    }
+    
+    /* Hide Streamlit branding */
+    .stApp > header {
+        background-color: transparent;
+    }
+    
+    .stApp > header[data-testid="stHeader"] {
+        background-color: transparent;
+    }
+    
+    /* Professional button styling */
+    .stButton > button {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 0.5rem 1rem;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+    }
+    
+    .stButton > button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+    
+    /* Professional sidebar styling */
+    .css-1d391kg {
+        background-color: #f8f9fa;
+    }
+    
+    /* Clean up Streamlit default styling */
+    .stMarkdown {
+        margin-bottom: 1rem;
+    }
+    
+    .stTextInput > div > div > input {
+        border-radius: 8px;
+        border: 1px solid #e9ecef;
+        padding: 0.5rem;
+    }
+    
+    .stSelectbox > div > div {
+        border-radius: 8px;
+        border: 1px solid #e9ecef;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -476,121 +554,205 @@ def get_fallback_medical_data():
     }
 
 def show_landing_page():
-    """Display landing page for non-authenticated users"""
+    """Display clean, professional landing page for non-authenticated users"""
+    
+    # Custom CSS for professional appearance
     st.markdown("""
-    <div class="main-header">
-        <h1>🏥 MedAssist AI Pro</h1>
-        <p>Revolutionary AI-Powered Clinical Workflow System</p>
+    <style>
+    .hero-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 4rem 2rem;
+        border-radius: 12px;
+        color: white;
+        text-align: center;
+        margin-bottom: 3rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .hero-title {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        letter-spacing: -0.02em;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+        opacity: 0.9;
+        margin-bottom: 2rem;
+        font-weight: 300;
+    }
+    
+    .feature-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        margin-bottom: 2rem;
+        border: 1px solid #f0f0f0;
+        transition: transform 0.2s ease;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    }
+    
+    .feature-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 1rem;
+    }
+    
+    .feature-description {
+        color: #6c757d;
+        line-height: 1.6;
+        font-size: 1rem;
+    }
+    
+    .login-section {
+        background: #f8f9fa;
+        padding: 2rem;
+        border-radius: 12px;
+        border: 1px solid #e9ecef;
+    }
+    
+    .login-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+    
+    .demo-button {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 500;
+        margin: 0.5rem 0;
+        width: 100%;
+        transition: all 0.2s ease;
+    }
+    
+    .demo-button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+    
+    .stats-section {
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        margin-top: 2rem;
+    }
+    
+    .stat-item {
+        text-align: center;
+        padding: 1rem;
+    }
+    
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #667eea;
+        margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+        color: #6c757d;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #2c3e50;
+        text-align: center;
+        margin: 3rem 0 2rem 0;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    
+    # Hero Section
+    st.markdown("""
+    <div class="hero-section">
+        <div class="hero-title">MedAssist AI Pro</div>
+        <div class="hero-subtitle">Advanced Clinical Workflow System</div>
     </div>
     """, unsafe_allow_html=True)
     
-    # Hero section
-    col1, col2 = st.columns([2, 1])
+    # Features Section - Horizontal Layout
+    st.markdown('<div class="section-title">Key Features</div>', unsafe_allow_html=True)
     
-    with col1:
-        st.markdown("""
-        ## 🚀 Welcome to the Future of Healthcare
-        
-        **MedAssist AI Pro** is a cutting-edge clinical workflow system that combines artificial intelligence 
-        with medical expertise to streamline patient care and improve clinical outcomes.
-        
-        ### ✨ Key Features
-        
-        - **🤖 AI-Powered Diagnosis** - Advanced symptom analysis and ICD-10 code suggestions
-        - **📄 Smart Document Processing** - Automatic extraction from ID cards and medical aid
-        - **👥 Multi-Role Access** - Tailored interfaces for doctors, nurses, and staff
-        - **🔒 Secure & Compliant** - HIPAA-compliant with role-based access control
-        - **📊 Real-time Analytics** - Clinical insights and performance metrics
-        
-        ### 🎯 Who Can Use MedAssist AI Pro?
-        
-        - **👨‍⚕️ Doctors** - Full clinical workflow access with AI assistance
-        - **👩‍⚕️ Nurses** - Patient care documentation and monitoring
-        - **📋 Receptionists** - Patient intake and registration management
-        - **👤 Patients** - Portal access to personal health information
-        - **👑 Administrators** - System management and analytics
-        """)
-    
-    with col2:
-        st.markdown("### 🔐 Quick Access")
-        
-        # Quick login buttons
-        st.markdown("**Demo Accounts:**")
-        
-        if st.button("👨‍⚕️ Doctor Demo", use_container_width=True):
-            st.session_state.authenticated = True
-            st.session_state.user_role = "doctor"
-            st.session_state.username = "doctor"
-            st.rerun()
-        
-        if st.button("👩‍⚕️ Nurse Demo", use_container_width=True):
-            st.session_state.authenticated = True
-            st.session_state.user_role = "nurse"
-            st.session_state.username = "nurse"
-            st.rerun()
-        
-        if st.button("📋 Receptionist Demo", use_container_width=True):
-            st.session_state.authenticated = True
-            st.session_state.user_role = "receptionist"
-            st.session_state.username = "receptionist"
-            st.rerun()
-        
-        if st.button("👤 Patient Demo", use_container_width=True):
-            st.session_state.authenticated = True
-            st.session_state.user_role = "patient"
-            st.session_state.username = "patient"
-            st.rerun()
-        
-        st.markdown("---")
-        st.markdown("**Or use the sidebar to log in with your credentials**")
-    
-    # Features showcase
-    st.markdown("---")
-    st.markdown("## 🌟 System Capabilities")
-    
+    # Create three columns for horizontal feature layout
     col1, col2, col3 = st.columns(3)
     
     with col1:
+        # Feature 1
         st.markdown("""
-        ### 🧠 AI Clinical Assistant
-        - Symptom analysis and pattern recognition
-        - ICD-10 code suggestions using Gemini AI
-        - Clinical decision support
-        - Risk assessment and prioritization
-        """)
+        <div class="feature-card">
+            <div class="feature-title">AI-Powered Clinical Assistant</div>
+            <div class="feature-description">
+                Advanced symptom analysis, ICD-10 code suggestions, and clinical decision support 
+                powered by Google Gemini AI technology.
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
     
     with col2:
+        # Feature 2
         st.markdown("""
-        ### 📱 Smart Intake Process
-        - Document upload and OCR processing
-        - Automatic data extraction from IDs
-        - Medical aid verification
-        - Pre-populated patient forms
-        """)
+        <div class="feature-card">
+            <div class="feature-title">Smart Document Processing</div>
+            <div class="feature-description">
+                Automatic extraction from ID cards and medical aid documents using OCR technology 
+                for streamlined patient intake.
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
     
     with col3:
+        # Feature 3
         st.markdown("""
-        ### 🔒 Security & Compliance
-        - Role-based access control
-        - Secure authentication system
-        - HIPAA-compliant data handling
-        - Audit trails and logging
-        """)
+        <div class="feature-card">
+            <div class="feature-title">Multi-Role Access Control</div>
+            <div class="feature-description">
+                Tailored interfaces for doctors, nurses, receptionists, and patients with 
+                secure, role-based access management.
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
     
-    # Statistics
-    st.markdown("---")
-    st.markdown("## 📊 Impact Metrics")
-    
-    col1, col2, col3, col4 = st.columns(4)
-    
-    with col1:
-        st.metric("Time Saved", "45%", "↑ 12%")
-    with col2:
-        st.metric("Accuracy", "96%", "↑ 8%")
-    with col3:
-        st.metric("User Satisfaction", "4.8/5", "↑ 15%")
-    with col4:
-        st.metric("Error Reduction", "67%", "↑ 23%")
+    # Performance Metrics
+    st.markdown("""
+    <div class="stats-section">
+        <div class="section-title">Performance Metrics</div>
+        <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+            <div class="stat-item">
+                <div class="stat-number">45%</div>
+                <div class="stat-label">Time Saved</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">96%</div>
+                <div class="stat-label">Accuracy Rate</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">4.8/5</div>
+                <div class="stat-label">User Rating</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">67%</div>
+                <div class="stat-label">Error Reduction</div>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
 def show_sidebar_login():
     """Display login form in sidebar"""
@@ -1223,12 +1385,60 @@ def show_consultation():
             "ai_suggestions": []
         }
     
-    # Mock consultation interface
-    st.subheader("Clinical Notes")
-    clinical_notes = st.text_area("Enter clinical findings and notes", 
-                                 value=st.session_state.consultation_data.get("clinical_notes", ""),
-                                 height=200,
-                                 key="clinical_notes_input")
+    # Clinical Notes Section with Example
+    st.subheader("📝 Clinical Notes")
+    
+    # Display example clinical note
+    col1, col2 = st.columns([1, 1])
+    
+    with col1:
+        st.markdown("### 📋 Example Clinical Note")
+        st.markdown("*Reference this example for proper clinical documentation format*")
+        
+        # Display the example clinical note image
+        try:
+            st.image("example_clinical_note.png", caption="Example Clinical Note Format", use_container_width=True)
+            
+            # Button to extract text from the clinical note image
+            if st.button("🔍 Extract Text from Image", key="extract_clinical_note", help="Use AI to extract text from the clinical note image"):
+                with st.spinner("🤖 Extracting text from clinical note image..."):
+                    extracted_text = extract_clinical_note_from_image("example_clinical_note.png")
+                    if extracted_text:
+                        st.success("✅ Text extracted successfully!")
+                        with st.expander("📄 Extracted Clinical Note Text", expanded=True):
+                            st.text_area("Extracted Text", value=extracted_text, height=200, disabled=True)
+                        
+                        # Option to use extracted text as clinical notes
+                        if st.button("📝 Use as Clinical Notes", key="use_extracted_text"):
+                            st.session_state.consultation_data["clinical_notes"] = extracted_text
+                            st.success("Clinical notes updated with extracted text!")
+                            st.rerun()
+                    else:
+                        st.error("❌ Could not extract text from image")
+                        
+        except Exception as e:
+            st.warning(f"Could not load example clinical note: {str(e)}")
+            st.info("Example clinical note image not available")
+    
+    with col2:
+        st.markdown("### ✍️ Enter Clinical Findings")
+        clinical_notes = st.text_area("Enter clinical findings and notes", 
+                                     value=st.session_state.consultation_data.get("clinical_notes", ""),
+                                     height=300,
+                                     key="clinical_notes_input",
+                                     placeholder="Enter detailed clinical findings, examination results, and assessment notes...")
+        
+        # Clinical notes tips
+        with st.expander("💡 Clinical Notes Tips", expanded=False):
+            st.markdown("""
+            **Best Practices for Clinical Notes:**
+            - Use SOAP format (Subjective, Objective, Assessment, Plan)
+            - Include vital signs and examination findings
+            - Document patient's chief complaint and history
+            - Note any allergies or contraindications
+            - Include assessment and treatment plan
+            - Use clear, professional medical terminology
+            """)
     
     # Update session state
     st.session_state.consultation_data["clinical_notes"] = clinical_notes
@@ -1352,78 +1562,321 @@ def show_consultation():
             st.session_state.current_stage = 2
             st.rerun()
 
+def extract_clinical_note_from_image(image_path):
+    """Extract text from clinical note image using Gemini Vision API"""
+    try:
+        from google import genai
+        from PIL import Image
+        
+        # Set up Gemini API
+        api_key = os.getenv("GEMINI_API_KEY")
+        if not api_key:
+            return None
+
+        # Set API key in environment for google-genai SDK
+        os.environ["GEMINI_API_KEY"] = api_key
+        client = genai.Client()
+        
+        # Load and process the image
+        image = Image.open(image_path)
+        
+        prompt = """
+        Analyze this clinical note image and extract all medical information. 
+        Return a structured summary including:
+        - Patient information
+        - Chief complaint
+        - Clinical findings
+        - Assessment and diagnosis
+        - Treatment plan
+        - Any medications or follow-up instructions
+        
+        Format the response as a clear, readable clinical note.
+        """
+        
+        # Generate content using Gemini Vision
+        response = client.models.generate_content(
+            model='gemini-2.5-flash',
+            contents=[prompt, image]
+        )
+        
+        return response.text.strip()
+        
+    except Exception as e:
+        st.warning(f"Could not extract clinical note from image: {str(e)}")
+        return None
+
+def generate_ai_medical_report():
+    """Generate comprehensive medical report using Gemini AI as MedGemma"""
+    try:
+        from google import genai
+        
+        # Set up Gemini API
+        api_key = os.getenv("GEMINI_API_KEY")
+        if not api_key:
+            st.warning("🔑 GEMINI_API_KEY not found. Using fallback report generation.")
+            return generate_fallback_report()
+
+        # Set API key in environment for google-genai SDK
+        os.environ["GEMINI_API_KEY"] = api_key
+        client = genai.Client()
+        
+        # Collect all patient data for comprehensive analysis
+        patient_data = st.session_state.patient_data
+        consultation_data = st.session_state.consultation_data if "consultation_data" in st.session_state else {}
+        uploaded_docs = st.session_state.uploaded_documents if "uploaded_documents" in st.session_state else {}
+        
+        # Prepare comprehensive data for AI analysis
+        clinical_data = {
+            "patient_demographics": {
+                "name": patient_data.get("name", "N/A"),
+                "age": patient_data.get("age", "N/A"),
+                "gender": patient_data.get("gender", "N/A"),
+                "mrn": patient_data.get("mrn", "N/A"),
+                "visit_type": patient_data.get("visit_type", "N/A"),
+                "insurance_provider": patient_data.get("insurance_provider", "N/A")
+            },
+            "clinical_presentation": {
+                "chief_complaint": patient_data.get("chief_complaint", "N/A"),
+                "symptom_onset": patient_data.get("symptom_onset", "N/A"),
+                "severity_rating": patient_data.get("severity", "N/A"),
+                "detected_symptoms": patient_data.get("analysis", {}).get("symptoms", []),
+                "anatomical_sites": patient_data.get("analysis", {}).get("anatomical_sites", [])
+            },
+            "clinical_assessment": {
+                "clinical_notes": consultation_data.get("clinical_notes", "N/A"),
+                "primary_icd10_code": consultation_data.get("selected_icd10", "N/A"),
+                "ai_suggestions": consultation_data.get("ai_suggestions", [])
+            },
+            "review_of_systems": {
+                "fever": patient_data.get("ros_fever", False),
+                "fatigue": patient_data.get("ros_fatigue", False),
+                "cough": patient_data.get("ros_cough", False),
+                "shortness_breath": patient_data.get("ros_shortness_breath", False),
+                "chest_pain": patient_data.get("ros_chest_pain", False),
+                "nausea": patient_data.get("ros_nausea", False),
+                "vomiting": patient_data.get("ros_vomiting", False),
+                "headache": patient_data.get("ros_headache", False),
+                "dizziness": patient_data.get("ros_dizziness", False)
+            },
+            "allergies": patient_data.get("allergies", "None reported"),
+            "documentation": {
+                "id_card_verified": uploaded_docs.get("id_card") is not None,
+                "medical_aid_verified": uploaded_docs.get("medical_aid") is not None
+            }
+        }
+        
+        # Create comprehensive prompt for MedGemma
+        prompt = f"""
+        You are MedGemma, an advanced AI medical assistant specialized in clinical report generation. 
+        Analyze the following comprehensive patient data and generate a professional medical report.
+        
+        PATIENT DATA:
+        {json.dumps(clinical_data, indent=2)}
+        
+        Please generate a comprehensive medical report that includes:
+        
+        1. **EXECUTIVE SUMMARY**: Brief overview of the patient's condition and key findings
+        
+        2. **PATIENT DEMOGRAPHICS**: Age, gender, visit type, insurance status
+        
+        3. **CHIEF COMPLAINT & HISTORY**: Detailed analysis of presenting symptoms, onset, and severity
+        
+        4. **CLINICAL ASSESSMENT**: Analysis of symptoms, anatomical sites, and clinical findings
+        
+        5. **REVIEW OF SYSTEMS**: Systematic analysis of all body systems
+        
+        6. **DIFFERENTIAL DIAGNOSIS**: Based on symptoms and clinical presentation, suggest 3-5 most likely diagnoses with reasoning
+        
+        7. **CLINICAL IMPRESSION**: Professional assessment and clinical reasoning
+        
+        8. **TREATMENT PLAN**: Recommended interventions, medications, and follow-up care
+        
+        9. **PATIENT EDUCATION**: Key points for patient understanding and self-care
+        
+        10. **FOLLOW-UP RECOMMENDATIONS**: Specific next steps and monitoring requirements
+        
+        11. **RISK ASSESSMENT**: Any red flags or concerning symptoms that require immediate attention
+        
+        12. **DOCUMENTATION STATUS**: Verification of uploaded documents and insurance coverage
+        
+        Format the report professionally with clear sections, medical terminology, and evidence-based recommendations.
+        Be thorough but concise, focusing on clinical relevance and patient safety.
+        """
+        
+        # Generate comprehensive report using Gemini
+        response = client.models.generate_content(
+            model='gemini-2.5-flash',
+            contents=[prompt]
+        )
+        
+        return response.text.strip()
+        
+    except Exception as e:
+        st.error(f"⚠️ AI report generation failed: {str(e)}")
+        return generate_fallback_report()
+
+def generate_fallback_report():
+    """Generate fallback report when AI is unavailable"""
+    patient_data = st.session_state.patient_data
+    consultation_data = st.session_state.consultation_data if "consultation_data" in st.session_state else {}
+    
+    return f"""
+# CLINICAL REPORT - FALLBACK GENERATION
+
+## Patient Information
+- **Name:** {patient_data.get('name', 'N/A')}
+- **Age:** {patient_data.get('age', 'N/A')} years
+- **Gender:** {patient_data.get('gender', 'N/A')}
+- **MRN:** {patient_data.get('mrn', 'N/A')}
+- **Visit Type:** {patient_data.get('visit_type', 'N/A')}
+
+## Clinical Summary
+- **Chief Complaint:** {patient_data.get('chief_complaint', 'N/A')}
+- **Symptom Onset:** {patient_data.get('symptom_onset', 'N/A')}
+- **Severity Rating:** {patient_data.get('severity', 'N/A')}/10
+
+## Assessment
+- **Clinical Notes:** {consultation_data.get('clinical_notes', 'N/A')}
+- **Primary ICD-10:** {consultation_data.get('selected_icd10', 'N/A')}
+
+## Recommendations
+- Follow-up appointment scheduled
+- Patient education materials provided
+- Prescription medications as indicated
+- Monitor symptoms and response to treatment
+
+*Note: This is a fallback report. AI-powered analysis was unavailable.*
+"""
+
 def show_final_report():
-    """Display the final report page"""
+    """Display the final report page with AI-generated comprehensive report"""
     # Role-based access control
     if st.session_state.user_role not in ["doctor", "nurse", "admin"]:
         st.error("🚫 Access Denied: Only doctors, nurses, and administrators can access clinical reports.")
         st.info("Please contact your administrator if you need access to this section.")
         return
     
-    st.header("📋 Final Clinical Report")
+    st.header("📋 AI-Generated Clinical Report")
+    st.info("🤖 This report is generated by MedGemma AI using comprehensive patient data analysis")
     
-    # Generate report
-    st.subheader("Patient Information")
-    col1, col2 = st.columns(2)
+    # Check if we have sufficient data for report generation
+    if not st.session_state.patient_data.get("name"):
+        st.warning("⚠️ Insufficient patient data for report generation. Please complete patient intake first.")
+        return
+    
+    # Initialize report in session state
+    if "ai_generated_report" not in st.session_state:
+        st.session_state.ai_generated_report = None
+    
+    # Generate AI Report Section
+    col1, col2, col3 = st.columns([2, 1, 1])
     
     with col1:
-        st.write(f"**Name:** {st.session_state.patient_data.get('name', 'N/A')}")
-        st.write(f"**MRN:** {st.session_state.patient_data.get('mrn', 'N/A')}")
-        st.write(f"**Age:** {st.session_state.patient_data.get('age', 'N/A')}")
-        st.write(f"**Gender:** {st.session_state.patient_data.get('gender', 'N/A')}")
+        st.subheader("🤖 MedGemma AI Report Generator")
     
     with col2:
-        st.write(f"**Visit Type:** {st.session_state.patient_data.get('visit_type', 'N/A')}")
-        st.write(f"**Insurance:** {st.session_state.patient_data.get('insurance_provider', 'N/A')}")
-        st.write(f"**Date:** {datetime.now().strftime('%Y-%m-%d')}")
+        if st.button("🔄 Generate AI Report", key="generate_ai_report", help="Generate comprehensive report using MedGemma AI"):
+            with st.spinner("🤖 MedGemma is analyzing patient data and generating comprehensive report..."):
+                ai_report = generate_ai_medical_report()
+                st.session_state.ai_generated_report = ai_report
+                st.success("✅ AI report generated successfully!")
     
-    st.subheader("Clinical Summary")
-    st.write(f"**Chief Complaint:** {st.session_state.patient_data.get('chief_complaint', 'N/A')}")
-    st.write(f"**Symptom Onset:** {st.session_state.patient_data.get('symptom_onset', 'N/A')}")
-    st.write(f"**Severity:** {st.session_state.patient_data.get('severity', 'N/A')}/10")
+    with col3:
+        if st.button("📄 View Raw Data", key="view_raw_data", help="View all collected patient data"):
+            with st.expander("📊 Complete Patient Data", expanded=True):
+                st.json(st.session_state.patient_data)
+                if "consultation_data" in st.session_state:
+                    st.json(st.session_state.consultation_data)
     
-    if "analysis" in st.session_state.patient_data:
-        analysis = st.session_state.patient_data["analysis"]
-        st.write(f"**Detected Symptoms:** {', '.join(analysis.get('symptoms', []))}")
-        st.write(f"**Anatomical Sites:** {', '.join(analysis.get('anatomical_sites', []))}")
-    
-    # Clinical Notes and ICD-10 Code
-    if "consultation_data" in st.session_state:
-        consultation_data = st.session_state.consultation_data
-        st.write(f"**Clinical Notes:** {consultation_data.get('clinical_notes', 'N/A')}")
-        st.write(f"**Primary ICD-10 Code:** {consultation_data.get('selected_icd10', 'N/A')}")
-    
-    # Uploaded Documents
-    if "uploaded_documents" in st.session_state:
-        st.subheader("📄 Uploaded Documents")
-        uploaded_docs = st.session_state.uploaded_documents
+    # Display AI Generated Report
+    if st.session_state.ai_generated_report:
+        st.markdown("---")
+        st.subheader("📋 MedGemma AI Clinical Report")
         
-        if uploaded_docs.get("id_card"):
-            id_doc = uploaded_docs["id_card"]
-            st.write(f"**ID Card:** {id_doc['filename']} - ✅ Verified")
+        # Display the AI-generated report
+        st.markdown(st.session_state.ai_generated_report)
         
-        if uploaded_docs.get("medical_aid"):
-            med_doc = uploaded_docs["medical_aid"]
-            st.write(f"**Medical Aid:** {med_doc['filename']} - ✅ Verified")
+        # Report Actions
+        col1, col2, col3, col4 = st.columns(4)
+        
+        with col1:
+            if st.button("💾 Save Report", key="save_report"):
+                # Save report to session state for later use
+                st.session_state.saved_report = st.session_state.ai_generated_report
+                st.success("Report saved to session!")
+        
+        with col2:
+            if st.button("📤 Export PDF", key="export_pdf"):
+                st.info("PDF export feature coming soon!")
+        
+        with col3:
+            if st.button("📧 Email Report", key="email_report"):
+                st.info("Email functionality coming soon!")
+        
+        with col4:
+            if st.button("🔄 Regenerate", key="regenerate_report"):
+                # Clear current report and regenerate
+                st.session_state.ai_generated_report = None
+                st.rerun()
     
-    st.subheader("Recommendations")
-    st.write("Based on the AI analysis and clinical assessment:")
-    st.write("- Follow-up appointment scheduled")
-    st.write("- Patient education materials provided")
-    st.write("- Prescription medications as indicated")
+    else:
+        # Show basic patient information while waiting for AI report
+        st.markdown("---")
+        st.subheader("📊 Patient Data Summary")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("### Demographics")
+            st.write(f"**Name:** {st.session_state.patient_data.get('name', 'N/A')}")
+            st.write(f"**MRN:** {st.session_state.patient_data.get('mrn', 'N/A')}")
+            st.write(f"**Age:** {st.session_state.patient_data.get('age', 'N/A')} years")
+            st.write(f"**Gender:** {st.session_state.patient_data.get('gender', 'N/A')}")
+            st.write(f"**Visit Type:** {st.session_state.patient_data.get('visit_type', 'N/A')}")
+            st.write(f"**Insurance:** {st.session_state.patient_data.get('insurance_provider', 'N/A')}")
+        
+        with col2:
+            st.markdown("### Clinical Presentation")
+            st.write(f"**Chief Complaint:** {st.session_state.patient_data.get('chief_complaint', 'N/A')}")
+            st.write(f"**Symptom Onset:** {st.session_state.patient_data.get('symptom_onset', 'N/A')}")
+            st.write(f"**Severity:** {st.session_state.patient_data.get('severity', 'N/A')}/10")
+            
+            if "analysis" in st.session_state.patient_data:
+                analysis = st.session_state.patient_data["analysis"]
+                st.write(f"**Detected Symptoms:** {', '.join(analysis.get('symptoms', []))}")
+                st.write(f"**Anatomical Sites:** {', '.join(analysis.get('anatomical_sites', []))}")
+        
+        # Show consultation data if available
+        if "consultation_data" in st.session_state:
+            st.markdown("### Clinical Assessment")
+            consultation_data = st.session_state.consultation_data
+            st.write(f"**Clinical Notes:** {consultation_data.get('clinical_notes', 'N/A')}")
+            st.write(f"**Primary ICD-10 Code:** {consultation_data.get('selected_icd10', 'N/A')}")
+        
+        # Show uploaded documents
+        if "uploaded_documents" in st.session_state:
+            st.markdown("### Document Verification")
+            uploaded_docs = st.session_state.uploaded_documents
+            
+            if uploaded_docs.get("id_card"):
+                id_doc = uploaded_docs["id_card"]
+                st.write(f"**ID Card:** {id_doc['filename']} - ✅ Verified")
+            
+            if uploaded_docs.get("medical_aid"):
+                med_doc = uploaded_docs["medical_aid"]
+                st.write(f"**Medical Aid:** {med_doc['filename']} - ✅ Verified")
     
+    # Navigation buttons
+    st.markdown("---")
     col1, col2 = st.columns(2)
     
     with col1:
-        if st.button("Generate Report", key="generate_report"):
-            st.success("Clinical report generated successfully!")
-            st.balloons()
-            
+        if st.button("✅ Complete Visit", key="complete_visit"):
             st.session_state.current_stage = 5
             st.rerun()
     
     with col2:
-        if st.button("Back to Consultation", key="back_to_consultation"):
+        if st.button("← Back to Consultation", key="back_to_consultation"):
             st.session_state.current_stage = 3
             st.rerun()
 

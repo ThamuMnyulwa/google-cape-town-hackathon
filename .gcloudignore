@@ -1,0 +1,97 @@
+# .gcloudignore file for MedAssist AI Pro
+# This file specifies which files to ignore when deploying to Google Cloud
+
+# Git files
+.git/
+.gitignore
+
+# Documentation
+*.md
+README.md
+AGENT.md
+terraform/README.md
+
+# Terraform files
+terraform/
+*.tf
+*.tfvars
+*.tfstate
+*.tfstate.backup
+.terraform/
+.terraform.lock.hcl
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+.pytest_cache/
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Docker files (except Dockerfile)
+docker-compose.yml
+.dockerignore
+
+# Development files
+generate_data/
+pages/
+run_local.sh
+simple_app.py.bak
+
+# Environment files
+.env
+.env.local
+.env.development
+.env.production
+
+# Node modules (if any)
+node_modules/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Test files
+test/
+tests/
+*_test.py
+test_*.py
+
+# Coverage reports
+.coverage
+htmlcov/
+
+# Jupyter notebooks
+*.ipynb
+.ipynb_checkpoints/
+
+# Backup files
+*.bak
+*.backup
